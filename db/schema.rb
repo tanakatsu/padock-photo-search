@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605192625) do
+ActiveRecord::Schema.define(version: 20170605193330) do
 
   create_table "horses", force: :cascade do |t|
     t.string "name", null: false
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20170605192625) do
     t.string "race"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_horses_on_date"
+    t.index ["name"], name: "index_horses_on_name"
+    t.index ["race"], name: "index_horses_on_race"
   end
 
 end
