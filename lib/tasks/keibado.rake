@@ -14,9 +14,14 @@ namespace 'keibado' do
     backnumbers = KeibadoCrawler.get_backnumber_list(years)
     puts backnumbers.join(", ")
 
+    imported_bn_dates = Horse.pluck(:date).uniq.map { |dt| dt.strftime("%y%m%d") }
+
+    unimported_backnumbers = (Set.new(backnumbers) - Set.new(imported_bn_dates)).to_a.sort
+    puts "target=#{unimported_backnumbers.join(", ")}"
+
     resume_from = ENV['resume']
     skip = resume_from.present?
-    backnumbers.each do |backnumber|
+    unimported_backnumbers.each do |backnumber|
       skip = false if resume_from && backnumber == resume_from
       next if skip
 
