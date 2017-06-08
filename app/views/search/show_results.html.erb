@@ -1,0 +1,22 @@
+<div>
+  <h2>Search Result</h2>
+  search word = <%= @q %>
+</div>
+
+<br/>
+
+<div class="flex-container">
+  <% @horses.each do |horse| %>
+    <div class="horsedata">
+      <div>
+        <%= link_to image_tag(horse.image_url, class: %w(thumb)), horse.url, target: :blank %>
+      </div>
+      <div>
+        <div><%= horse.name %></div>
+        <div class="subinfo">（<%= horse.date %> / <%= horse.race %>）</div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'Back', search_index_path %>

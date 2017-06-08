@@ -1,0 +1,7 @@
+<div>
+  <h2>Padock Image search</h2>
+  <%= form_tag(show_results_search_index_path, method: :post) do %>
+    <%= text_field_tag 'q', '', {size: 50} %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+</div>

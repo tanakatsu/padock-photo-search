@@ -1,0 +1,23 @@
+// Place all the styles related to the search controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: flex-start;
+}
+
+
+.horsedata {
+  padding: 5px;
+  flex: 0;
+}
+
+.thumb {
+  width: 200px;
+}
+
+.subinfo {
+  font-size: 12px;
+}
