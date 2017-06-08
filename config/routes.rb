@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :search, only: [:index] do
     collection do
-      post :show_results
+      get :show_results
     end
   end
 

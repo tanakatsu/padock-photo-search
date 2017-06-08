@@ -7,7 +7,7 @@ class SearchController < ApplicationController
     @horses = if @q.blank?
       []
     else
-      Horse.where("name like ?", "%#{@q}%").order("name, date DESC")
+      Horse.where("name like ?", "%#{@q}%").order("name, date DESC").page(params[:page])
     end
   end
 end

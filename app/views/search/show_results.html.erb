@@ -5,6 +5,10 @@
 
 <br/>
 
+<div class="pager">
+  <%= paginate @horses %>
+</div>
+
 <div class="flex-container">
   <% @horses.each do |horse| %>
     <div class="horsedata">
@@ -17,6 +21,10 @@
       </div>
     </div>
   <% end %>
+</div>
+
+<div class="pager">
+  <%= paginate @horses %>
 </div>
 
 <%= link_to 'Back', search_index_path %>
