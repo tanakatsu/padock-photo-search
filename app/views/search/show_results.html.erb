@@ -1,3 +1,9 @@
+<script>
+  lightbox.option({
+    'disableScrolling': true
+  })
+</script>
+
 <div>
   <h2>Search Result</h2>
   search word = <%= @q %>
@@ -13,10 +19,10 @@
   <% @horses.each do |horse| %>
     <div class="horsedata">
       <div>
-        <%= link_to image_tag(horse.image_url, class: %w(thumb)), horse.url, target: :blank %>
+        <%= link_to image_tag(horse.image_url, class: %w(thumb)), horse.image_url, data: {lightbox: horse.name, title: "#{horse.name} #{horse.date} / #{horse.race}"} %>
       </div>
       <div>
-        <div><%= horse.name %></div>
+        <div><%= link_to horse.name, horse.url, target: :blank %></div>
         <div class="subinfo">（<%= horse.date %> / <%= horse.race %>）</div>
       </div>
     </div>

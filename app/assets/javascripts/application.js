@@ -11,5 +11,6 @@
 // about supported directives.
 //
 //= require rails-ujs
+//= require lightbox/lightbox-plus-jquery
 //= require turbolinks
 //= require_tree .
