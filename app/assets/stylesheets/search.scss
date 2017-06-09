@@ -13,6 +13,10 @@
 .horsedata {
   padding: 5px;
   flex: 0;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .thumb {
@@ -21,4 +25,8 @@
 
 .subinfo {
   font-size: 12px;
+}
+
+.pager {
+  margin: 10px 0px;
 }
