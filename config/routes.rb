@@ -8,5 +8,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace 'api' do
+    resources :horses, only: [:index]
+    resources :backnumbers, only: [:index]
+  end
+
   root to: 'search#index'
 end
