@@ -1,24 +1,28 @@
-# README
+# Padock photo search
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a padock photo search web application.
+It provides APIs, too. Data is fetched from [Keibado's site](http://www.keibado.ne.jp/keibabook/itw/index.html) and this application just save urls.
 
-Things you may want to cover:
+### How to make dataset
 
-* Ruby version
+```
+$ bundle exec rake keibado:import_all
+```
 
-* System dependencies
+This task imports only unimported data.
+So, you can use this task to update your dataset.
 
-* Configuration
+### Implemented APIs
 
-* Database creation
+- GET /api/horses
+	- required params
+      - name: horse name
 
-* Database initialization
+- GET /api/backnumbers
+  - optional params
+      - year: target year (ex. 2017)
+      - limit: number of response data
 
-* How to run the test suite
+### License
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+MIT
