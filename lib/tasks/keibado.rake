@@ -10,6 +10,17 @@ namespace 'keibado' do
     horse_data = []
     current_year = Date.current.year
     years = (2002..current_year).to_a
+
+    # Allow to run only for specified day of week (Sun=0, Mon=1, Tue=2, Wed=3, Thu=4, Fri=5, Sat=6)
+    wday = ENV['wday']
+    wdays = wday.nil? ? [] : wday.split(/,/)
+    if wdays.size > 0
+      if wdays.include?(Date.current.wday.to_s) == false
+        puts 'Exited: Not target day of week.'
+        exit
+      end
+    end
+
     puts 'Get backnumbers...'
     backnumbers = KeibadoCrawler.get_backnumber_list(years)
     puts backnumbers.join(", ")
