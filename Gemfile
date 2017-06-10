@@ -57,3 +57,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pg'
 gem 'nokogiri'
 gem 'kaminari'
+gem 'rails_12factor', group: :production # for Heroku deployment
