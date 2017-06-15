@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    command: ./start_server.sh
+    volumes:
+      - .:/myapp
+    depends_on:
+      - db
+      - redis
+    ports:
+      - '3000:3000'
+    environment:
+      TRUSTED_IP:
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+
+  db:
+    image: postgres:9.5.4
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+
+  redis:
+    image: redis:2
+    ports:
+      - '6379:6379'
