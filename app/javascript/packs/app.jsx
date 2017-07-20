@@ -6,18 +6,26 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducers from './reducers'
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import SearchTop from './components/SearchTop'
-import SearchResult from './components/SearchResult'
+import SearchResult from './containers/SearchResult'
+
+let store = createStore(rootReducers)
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Router>
-      <Switch>
-        <Route exact path="/react_app/index" component={SearchTop} />
-        <Route path="/react_app/search" component={SearchResult} />
-      </Switch>
-    </Router>,
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path="/react_app/index" component={SearchTop} />
+          <Route path="/react_app/search" component={SearchResult} />
+        </Switch>
+      </Router>
+    </Provider>,
     document.body.appendChild(document.createElement('div')),
   )
 })
