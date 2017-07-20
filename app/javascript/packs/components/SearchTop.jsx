@@ -6,9 +6,9 @@ const SearchTop = ({history}) => {
   return (
     <div>
       <h2>Padock photo search</h2>
-      <form>
+      <form onSubmit={(e) => { e.preventDefault();history.push(`/react_app/search?q=${this.searchWord.value}`) }}>
         <input ref={(input) => { this.searchWord = input }} type="text" size="50" />
-        <input type="submit" value="Search" onClick={() => history.push('/react_app/search?q=' + this.searchWord.value)}/>
+        <input type="submit" value="Search" />
       </form>
     </div>
   )
