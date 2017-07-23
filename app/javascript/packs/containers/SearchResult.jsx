@@ -11,6 +11,9 @@ import * as actions from '../actions'
 import HorsePhoto from '../components/HorsePhoto'
 import Loading from '../components/Loading'
 
+// http://jasonwatmore.com/post/2017/03/14/react-pagination-example-with-logic-like-google
+import Pagination from '../components/Pagination'
+
 class SearchResult extends React.Component {
   constructor(props) {
     super(props)
@@ -19,14 +22,23 @@ class SearchResult extends React.Component {
     const qs = queryString.parse(props.location.search)
     this.searchWord = qs.q
     console.log(this.searchWord)
+
+    this.state = {
+      pageOfItems: []
+    }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.actions.searchPhotos(this.searchWord)
   }
 
+  onChangePage(pageOfItems) {
+    // update state with new page of items
+    this.setState({ pageOfItems: pageOfItems })
+  }
+
   render() {
-    const photos = this.props.photos.map((h, i) => {
+    const photos = this.state.pageOfItems.map((h, i) => {
       return <HorsePhoto key={i} name={h.name} img_url={h.image_url} link_url={h.url} race_name={h.race} race_date={h.date} />
     })
 
@@ -41,6 +53,9 @@ class SearchResult extends React.Component {
         { loading }
         <div className="flex-container">
           { photos }
+        </div>
+        <div>
+          <Pagination items={this.props.photos} onChangePage={this.onChangePage.bind(this)} pageSize={10} />
         </div>
         <Link to="/react_app/index">[Back]</Link>
       </div>
