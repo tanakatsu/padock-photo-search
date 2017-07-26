@@ -27,7 +27,8 @@ class SearchResult extends React.Component {
     this.state = {
       pageOfItems: [],
       lightboxIsOpen: false,
-      currentImage: 0
+      currentImage: 0,
+      currentHorseName: null
     }
 
     this.closeLightbox = this.closeLightbox.bind(this)
@@ -45,11 +46,12 @@ class SearchResult extends React.Component {
     this.setState({ pageOfItems: pageOfItems })
   }
 
-  openLightbox(index, event) {
+  openLightbox(index, name, event) {
     event.preventDefault();
     this.setState({
       currentImage: index,
       lightboxIsOpen: true,
+      currentHorseName: name
     });
   }
 
@@ -70,11 +72,23 @@ class SearchResult extends React.Component {
   }
 
   render() {
+    const indexByHorseName = this.state.pageOfItems.reduce((acc, val, i, ary) => {
+      let list = acc[val.name] || []
+      list.push(i)
+      acc[val.name] = list
+      return acc
+    }, {})
+    // console.log(indexByHorseName)
+
     const photos = this.state.pageOfItems.map((h, i) => {
-      return <HorsePhoto key={i} name={h.name} img_url={h.image_url} link_url={h.url} race_name={h.race} race_date={h.date} onClickThumbnail={(e) => this.openLightbox(i, e) } />
+      const idx = indexByHorseName[h.name].findIndex((elm) => { return elm == i })
+      // console.log(h.name, i, idx)
+      return <HorsePhoto key={i} name={h.name} img_url={h.image_url} link_url={h.url} race_name={h.race} race_date={h.date} onClickThumbnail={(e) => this.openLightbox(idx, h.name, e) } />
     })
 
-    const image_srcs = this.state.pageOfItems.map((h) => {
+    const image_srcs = this.state.pageOfItems.filter((h) => {
+      return h.name == this.state.currentHorseName
+    }).map((h) => {
       return {src: h.image_url,
               caption: `${h.name} ${h.date} / ${h.race}`}
     })
