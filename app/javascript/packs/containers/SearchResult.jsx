@@ -10,6 +10,7 @@ import * as actions from '../actions'
 
 import HorsePhoto from '../components/HorsePhoto'
 import Loading from '../components/Loading'
+import Lightbox from 'react-images'
 
 // http://jasonwatmore.com/post/2017/03/14/react-pagination-example-with-logic-like-google
 import Pagination from '../components/Pagination'
@@ -24,8 +25,15 @@ class SearchResult extends React.Component {
     console.log(this.searchWord)
 
     this.state = {
-      pageOfItems: []
+      pageOfItems: [],
+      lightboxIsOpen: false,
+      currentImage: 0
     }
+
+    this.closeLightbox = this.closeLightbox.bind(this)
+    this.gotoNext = this.gotoNext.bind(this)
+    this.gotoPrevious = this.gotoPrevious.bind(this)
+    this.openLightbox = this.openLightbox.bind(this)
   }
 
   componentDidMount() {
@@ -37,9 +45,38 @@ class SearchResult extends React.Component {
     this.setState({ pageOfItems: pageOfItems })
   }
 
+  openLightbox(index, event) {
+    event.preventDefault();
+    this.setState({
+      currentImage: index,
+      lightboxIsOpen: true,
+    });
+  }
+
+  closeLightbox() {
+    this.setState({ lightboxIsOpen: false, currentImage: 0 })
+  }
+
+  gotoPrevious () {
+    this.setState({
+      currentImage: this.state.currentImage - 1,
+    });
+  }
+
+  gotoNext () {
+    this.setState({
+      currentImage: this.state.currentImage + 1,
+    });
+  }
+
   render() {
     const photos = this.state.pageOfItems.map((h, i) => {
-      return <HorsePhoto key={i} name={h.name} img_url={h.image_url} link_url={h.url} race_name={h.race} race_date={h.date} />
+      return <HorsePhoto key={i} name={h.name} img_url={h.image_url} link_url={h.url} race_name={h.race} race_date={h.date} onClickThumbnail={(e) => this.openLightbox(i, e) } />
+    })
+
+    const image_srcs = this.state.pageOfItems.map((h) => {
+      return {src: h.image_url,
+              caption: `${h.name} ${h.date} / ${h.race}`}
     })
 
     const loading = this.props.loading ? <Loading /> : null
@@ -57,6 +94,15 @@ class SearchResult extends React.Component {
         <div>
           <Pagination items={this.props.photos} onChangePage={this.onChangePage.bind(this)} pageSize={10} />
         </div>
+
+        <Lightbox images={image_srcs}
+          currentImage={this.state.currentImage}
+          isOpen={this.state.lightboxIsOpen}
+          onClose={this.closeLightbox}
+          onClickNext={this.gotoNext}
+          onClickPrev={this.gotoPrevious} 
+        />
+
         <Link to="/react_app/index">[Back]</Link>
       </div>
     )

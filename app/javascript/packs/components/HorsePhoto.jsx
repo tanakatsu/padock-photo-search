@@ -1,12 +1,11 @@
 import React from 'react'
 
-const HorsePhoto = ({name, img_url, link_url, race_name, race_date}) => {
-  const data_title = `${name} ${race_date} / ${race_name}`
+const HorsePhoto = ({name, img_url, link_url, race_name, race_date, onClickThumbnail}) => {
   return (
     <div className="horsedata">
       <div>
-        <a data-lightbox={name} data-title={data_title}>
-          <img className="thumb" src={img_url} />
+        <a>
+          <img className="thumb" src={img_url} onClick={onClickThumbnail} />
         </a>
       </div>
       <div>
